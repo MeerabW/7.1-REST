@@ -1,8 +1,9 @@
-package rest.warehouse;
+package tradearea.warehouse;
 
 import org.springframework.stereotype.Service;
-import rest.model.WarehouseData;
+import tradearea.model.WarehouseData;
 
+import java.util.List;
 @Service
 public class WarehouseService {
 	
@@ -12,9 +13,9 @@ public class WarehouseService {
 
     public WarehouseData getWarehouseData( String inID ) {
     	
-    	rest.warehouse.WarehouseSimulation simulation = new rest.warehouse.WarehouseSimulation();
+    	tradearea.warehouse.WarehouseSimulation simulation = new tradearea.warehouse.WarehouseSimulation();
         return simulation.getData( inID );
         
     }
-    
+
 }
