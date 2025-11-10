@@ -1,4 +1,4 @@
-package tradearea.warehouse;
+package rest.warehouse;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.MediaType;
 
-import tradearea.model.WarehouseData;
+import rest.model.WarehouseData;
 
 @RestController
 public class WarehouseController {
 
     @Autowired
-    private WarehouseService service;
+    private rest.warehouse.WarehouseService service;
 	
     @RequestMapping("/")
     public String warehouseMain() {
