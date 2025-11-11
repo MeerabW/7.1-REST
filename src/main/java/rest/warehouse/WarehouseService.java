@@ -17,5 +17,8 @@ public class WarehouseService {
         return simulation.getData( inID );
         
     }
-
+    public List<WarehouseData> getAllWarehouses() {
+        tradearea.warehouse.WarehouseSimulation simulation = new tradearea.warehouse.WarehouseSimulation();
+        return simulation.getAllWarehouses();
+    }
 }

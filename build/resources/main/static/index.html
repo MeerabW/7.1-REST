@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .filters {
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 6px;
+            margin-right: 8px;
+        }
+        button {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #e9ecef;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+<h1>Warehouse Inventory</h1>
+
+<div class="filters">
+    <label>Filter by Location:
+        <input type="text" id="filterLocation" placeholder="e.g. Wien, Graz">
+    </label>
+    <label>Filter by Product:
+        <input type="text" id="filterProduct" placeholder="e.g. Apfelsaft">
+    </label>
+    <button onclick="loadData()">Reload</button>
+</div>
+
+<table id="warehouseTable">
+    <thead>
+    <tr>
+        <th>Warehouse ID</th>
+        <th>Warehouse Name</th>
+        <th>City</th>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    async function loadData() {
+        const locFilter = document.getElementById('filterLocation').value.toLowerCase();
+        const prodFilter = document.getElementById('filterProduct').value.toLowerCase();
+
+        try {
+            const response = await fetch('/warehouse/all/json');
+            const warehouses = await response.json();
+
+            const tbody = document.querySelector('#warehouseTable tbody');
+            tbody.innerHTML = '';
+
+            warehouses.forEach(w => {
+                w.productData
+                    .filter(p =>
+                        (locFilter === '' || w.warehouseCity.toLowerCase().includes(locFilter)) &&
+                        (prodFilter === '' || p.productName.toLowerCase().includes(prodFilter))
+                    )
+                    .forEach(p => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                <td>${w.warehouseID}</td>
+                <td>${w.warehouseName}</td>
+                <td>${w.warehouseCity}</td>
+                <td>${p.productName}</td>
+                <td>${p.productCategory}</td>
+                <td>${p.productQuantity}</td>
+                <td>${p.productUnit}</td>
+              `;
+                        tbody.appendChild(row);
+                    });
+            });
+        } catch (err) {
+            console.error('Error loading data:', err);
+        }
+    }
+
+    // automatisch beim Laden ausführen
+    window.onload = loadData;
+</script>
+</body>
+</html>

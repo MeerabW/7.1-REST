@@ -49,34 +49,34 @@ public class WarehouseSimulation {
 
         ProductData p1 = new ProductData();
         p1.setProductID("00-" + getRandomInt(100000, 999999));
-        p1.setProductName("Bio Orangensaft Sonne");
-        p1.setProductCategory("Getraenk");
+        p1.setProductName("Rauch Eistee");
+        p1.setProductCategory("Getränk");
         p1.setProductQuantity(getRandomInt(1000, 5000));
-        p1.setProductUnit("Packung 1L");
+        p1.setProductUnit(getRandomInt(1, 1000)+"L");
         products.add(p1);
 
         ProductData p2 = new ProductData();
         p2.setProductID("00-" + getRandomInt(100000, 999999));
-        p2.setProductName("Bio Apfelsaft Gold");
-        p2.setProductCategory("Getraenk");
+        p2.setProductName("Vollkorn Toastbrot");
+        p2.setProductCategory("Lebensmittel");
         p2.setProductQuantity(getRandomInt(1000, 5000));
-        p2.setProductUnit("Packung 1L");
+        p2.setProductUnit(getRandomInt(1, 1000)+"G");
         products.add(p2);
 
         ProductData p3 = new ProductData();
         p3.setProductID("01-" + getRandomInt(100000, 999999));
-        p3.setProductName("Ariel Waschmittel Color");
+        p3.setProductName("Ariel Waschmittel");
         p3.setProductCategory("Waschmittel");
         p3.setProductQuantity(getRandomInt(200, 1000));
-        p3.setProductUnit("Packung 3KG");
+        p3.setProductUnit(getRandomInt(1, 1000)+"KG");
         products.add(p3);
 
         ProductData p4 = new ProductData();
         p4.setProductID("00-" + getRandomInt(100000, 999999));
-        p4.setProductName("Persil Discs Color");
-        p4.setProductCategory("Waschmittel");
+        p4.setProductName("Linsen");
+        p4.setProductCategory("Lebensmittel");
         p4.setProductQuantity(getRandomInt(500, 2000));
-        p4.setProductUnit("Packung 700G");
+        p4.setProductUnit(getRandomInt(1, 1000)+"G");
         products.add(p4);
 
         data.setProductData(products);
@@ -84,4 +84,15 @@ public class WarehouseSimulation {
         return data;
     }
 
+    public List<WarehouseData> getAllWarehouses() {
+        List<WarehouseData> allWarehouses = new ArrayList<>();
+
+        for (int i = 0; i < warehouseInfo.length; i++) {
+            String id = String.valueOf(i + 1);
+            WarehouseData data = getData(id);
+            allWarehouses.add(data);
+        }
+
+        return allWarehouses;
+    }
 }
